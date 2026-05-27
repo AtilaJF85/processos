@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: processos 
+
+  datasource:
+    url: jdbc:postgresql://localhost:5433/processos
+    username: postgres 
+    password: postgres
+
+  jackson:
+    default-property-inclusion: non-null
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
