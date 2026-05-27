@@ -65,7 +65,7 @@ public class ProcessoParteService {
 				                                                                    .getId())
 				                                                                    .orElseThrow(() -> new IdNaoExisteException("PROCESSO com ID " + processoParteDto.getProcesso().getId() + " Não existe!")));
 		
-		processoParteEntity.setPessoaFisica(processoParteDto.getPessoaFisica().builder()
+//		processoParteEntity.setPessoaFisica(processoParteDto.getPessoaFisica().builder())
 				                                                              
 				                                                              
 		
