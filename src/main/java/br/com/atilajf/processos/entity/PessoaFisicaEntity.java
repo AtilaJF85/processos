@@ -1,17 +1,11 @@
 package br.com.atilajf.processos.entity;
 
-import java.util.Date;
-import java.util.List;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -34,7 +28,7 @@ public class PessoaFisicaEntity {
 	private Date dataDeNascimento;
 
 	@Column(name = "ds_email", length = 200, nullable = false)
-	private Date email;
+	private String email;
 
 	@Column(name = "nu_telefone", length = 20, nullable = false)
 	private String numeroTelefone;

@@ -24,11 +24,11 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class TramitacaoService {
 
-	private TramitacaoRepository tramitacaoRepository;
-	private ProcessoRepository processoRepository;
-	private SetorRepository setorRepository;
-	private AnalistaRepository analistaRepository;
-	private UsuarioRepository usuarioRepository;
+	private final TramitacaoRepository tramitacaoRepository;
+	private final ProcessoRepository processoRepository;
+	private final SetorRepository setorRepository;
+	private final AnalistaRepository analistaRepository;
+	private final UsuarioRepository usuarioRepository;
 
 	public List<TramitacaoDTO> listar() {
 		return tramitacaoRepository.findAll().stream()

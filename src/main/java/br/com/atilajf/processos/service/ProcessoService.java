@@ -20,9 +20,9 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class ProcessoService {
 
-	private ProcessoRepository processoRepository;
-	private UsuarioRepository usuarioRepository;
-	private SituacaoProcessoRepository situacaoProcessoRepository;
+	private final ProcessoRepository processoRepository;
+	private final UsuarioRepository usuarioRepository;
+	private final SituacaoProcessoRepository situacaoProcessoRepository;
 	
 	public List<ProcessoDTO> Listar(){
 		return processoRepository.findAll().stream()

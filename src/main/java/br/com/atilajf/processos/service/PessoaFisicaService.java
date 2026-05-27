@@ -18,9 +18,10 @@ public class PessoaFisicaService {
 	private final PessoaFisicaRepository pessoaFisicaRepository;
 	
 	
-	public List<PessoaFisicaDTO> ListarTodos(){
+	public List<PessoaFisicaDTO> listarTodos(){
 		return pessoaFisicaRepository.findAll().stream()
 				                               .map(pessoaFisicaEntity -> PessoaFisicaDTO.builder()
+													   									 .id(pessoaFisicaEntity.getId())
 				                            		                                     .nomePessoaFisica(pessoaFisicaEntity.getNomePessoaFisica())
 				                            		                                     .cpf(pessoaFisicaEntity.getCpf())
 				                            		                                     .dataDeNascimento(pessoaFisicaEntity.getDataDeNascimento())

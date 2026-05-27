@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class SituacaoProcessoService {
 
-	private SituacaoProcessoRepository situacaoProcessoRepository;
+	private final SituacaoProcessoRepository situacaoProcessoRepository;
 
 	public List<SituacaoProcessoDTO> listarTodos() {
 		return situacaoProcessoRepository.findAll().stream()

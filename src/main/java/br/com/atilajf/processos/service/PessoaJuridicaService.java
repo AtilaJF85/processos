@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class PessoaJuridicaService {
 
-	private PessoaJuridicaRepository pessoaJuridicaRepository;
+	private final PessoaJuridicaRepository pessoaJuridicaRepository;
 	
 	public List<PessoaJuridicaDTO> listarTodos(){
 		return pessoaJuridicaRepository.findAll().stream()

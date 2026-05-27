@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class TipoParteService {
 
-	private TipoParteRepository tipoParteRepository;
+	private final TipoParteRepository tipoParteRepository;
 	
 	
 	public List<TipoParteDTO> listarTodos(){

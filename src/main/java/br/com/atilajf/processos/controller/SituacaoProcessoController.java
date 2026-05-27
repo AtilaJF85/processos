@@ -19,8 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 public class SituacaoProcessoController {
 
 	private final SituacaoProcessoService situacaoProcessoService;
-	
-	
+
 	public ResponseEntity<List<SituacaoProcessoDTO>> listar() {
 		final var situacaoProcesso = situacaoProcessoService.listarTodos();
 		return ResponseEntity.ok(situacaoProcesso);

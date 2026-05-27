@@ -1,3 +1,20 @@
+jwt:
+  auth:
+    converter:
+      resource-id: ${spring.security.oauth2.client.registration.keycloak.client-id}
+      principal-attribute: preferred_username
+
+cors:
+  allowed-headers: '*'
+  allowed-methods: 'GET,POST,PUT,PATCH,DELETE,OPTIONS'
+  allow-credentials: true
+  max-age: 3600
+  allowed-origin-pattern: 'http://localhost:8080,http://localhost:3000'
+
+app:
+  name: ${spring.application.name}
+  version: 1.0.0
+
 spring:
   application:
     name: processos 
@@ -17,6 +34,55 @@ spring:
         show_sql: true
         format_sql: true
 
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://keycloak.poc.getinsight.tech/realms/aulas
+          jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
+      client:
+        provider:
+          keycloak:
+            issuer-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}
+            jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.jwk-set-uri}
+            authorization-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/auth
+            token-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/token
+            user-info-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/userinfo
+            user-info-authentication-method: form
+        registration:
+          keycloak:
+            client-id: processos-backend
+            client-secret: WEQ6OAu68fit5YvSWMzAdv6OE98NZAyi
+            authorization-grant-type: client_credentials
+            client-authentication-method: client_secret_basic
+
 springdoc:
   swagger-ui:
-    path: /swagger-ui.html
+    enabled: true
+    default-model-expand-depth: 0
+    doc-expansion: none
+    disable-swagger-default-url: true
+    display-request-duration: true
+    oauth:
+      authorization-url: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/auth
+      token-url: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/token
+      client-id: ${spring.security.oauth2.client.registration.keycloak.client-id}
+      client-secret: ${spring.security.oauth2.client.registration.keycloak.client-secret}
+      realm: aulas
+      scopes:
+        - openid
+    csrf:
+      enabled: true
+    show-extensions: true
+    show-common-extensions: true
+    syntax-highlight:
+      theme: monokai
+    persist-authorization: true
+  writer-with-default-pretty-printer: true
+  api-docs:
+    groups:
+      enabled: true
+    resolve-schema-properties: true
+    enabled: true
+  paths-to-exclude:
+    - /error

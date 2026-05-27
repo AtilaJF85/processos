@@ -20,7 +20,7 @@ public class PessoaFisicaDTO {
 
 	private Date dataDeNascimento;
 
-	private Date email;
+	private String email;
 
 	private String numeroTelefone;
 

@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class SetorService {
 
-	private SetorRepository setorRepository;
+	private final SetorRepository setorRepository;
 	
 	public List<SetorDTO>listarTodos(){
 		final var setorEntity = setorRepository.findAll();

@@ -20,10 +20,10 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class ProcessoParteService {
 
-	private ProcessoParteRepository processoParteRepository;
-	private PessoaFisicaRepository pessoaFisicaRepository;
-	private PessoaJuridicaRepository pessoaJuridicaRepository;
-	private ProcessoRepository processoRepository;
+	private final ProcessoParteRepository processoParteRepository;
+	private final PessoaFisicaRepository pessoaFisicaRepository;
+	private final PessoaJuridicaRepository pessoaJuridicaRepository;
+	private final ProcessoRepository processoRepository;
 	
 	
 	public List<ProcessoParteDTO> listarPartesPorProcesso(ProcessoParteDTO processoParteDto){

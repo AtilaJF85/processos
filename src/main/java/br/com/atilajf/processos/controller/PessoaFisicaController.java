@@ -27,7 +27,7 @@ public class PessoaFisicaController {
 	
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<PessoaFisicaDTO>> listar(){
-		final var pessoaFisica = pessoaFisicaService.ListarTodos();
+		final var pessoaFisica = pessoaFisicaService.listarTodos();
 		return ResponseEntity.ok(pessoaFisica);
 	}
 	
