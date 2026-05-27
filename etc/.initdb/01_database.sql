@@ -1,3 +1,4 @@
-CREATE USER keycloak WITH PASSWORD 'keycloak';
-CREATE DATABASE keycloak WITH ENCODING 'UTF8' OWNER keycloak;
-GRANT ALL ON DATABASE keycloak TO keycloak;
+CREATE USER processos WITH PASSWORD 'processos';
+CREATE DATABASE processos WITH ENCODING 'UTF8' OWNER processos;
+GRANT ALL ON DATABASE processos TO processos;
+

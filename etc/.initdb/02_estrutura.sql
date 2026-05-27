@@ -5,14 +5,6 @@
 -- =============================================================================
 -- Execução: psql -U postgres -h localhost -p 5434 -f 01_estrutura.sql
 
-DROP DATABASE IF EXISTS processos;
-
-CREATE DATABASE processos
-    WITH
-    OWNER    = postgres
-    ENCODING = 'UTF8'
-    TEMPLATE = template0;
-
 \c processos
 
 -- =============================================================================

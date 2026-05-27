@@ -1,0 +1,31 @@
+name: processos
+
+volumes:
+  postgres:
+
+services:
+
+  postgres:
+    image: postgres:18-alpine
+    hostname: postgres
+    restart: unless-stopped
+    healthcheck:
+      test: pg_isready -U postgres -d keycloak
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    volumes:
+      - type: volume
+        source: postgres
+        target: /var/lib/postgresql
+      - type: bind
+        source: ./.initdb
+        target: /docker-entrypoint-initdb.d
+        read_only: true
+        consistency: consistent
+    environment:
+      - TZ=America/Sao_Paulo
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5433:5432"
