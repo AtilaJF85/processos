@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestController
 @Tag(name = "👤🏢 Pessoa Juridica", description = "CRUD de Pessoa Juridica")
-@RequestMapping("/tb_pessoa_juridica")
+@RequestMapping("/pessoa_juridica")
 @RequiredArgsConstructor
 public class PessoaJuridicaController {
 

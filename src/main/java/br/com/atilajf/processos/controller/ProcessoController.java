@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestController
 @Tag(name = "📑 Processo", description = "CRUD de Processo")
-@RequestMapping("/tb_processo")
+@RequestMapping("/processo")
 @RequiredArgsConstructor
 public class ProcessoController {
 

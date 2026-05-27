@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestController
 @Tag(name = "🏢 Setor", description = "CRUD de Setor")
-@RequestMapping("/tb_setor")
+@RequestMapping("/setor")
 @RequiredArgsConstructor
 public class SetorController {
 

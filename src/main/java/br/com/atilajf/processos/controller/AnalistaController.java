@@ -14,8 +14,8 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@Tag(name = "Analista", description = "CRUD de Analista")
-@RequestMapping("/tb_analista")
+@Tag(name = "🤷‍♂️ Analista", description = "CRUD de Analista")
+@RequestMapping("/analista")
 @RequiredArgsConstructor
 public class AnalistaController {
 

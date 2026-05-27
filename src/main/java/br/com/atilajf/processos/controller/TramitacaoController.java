@@ -18,8 +18,8 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@Tag(name = "Tramitação", description = "CRUD de Tramitação")
-@RequestMapping("/th_tramitacao")
+@Tag(name = "\uD83D\uDD04 Tramitação", description = "CRUD de Tramitação")
+@RequestMapping("/tramitacao")
 @RequiredArgsConstructor
 public class TramitacaoController {
 

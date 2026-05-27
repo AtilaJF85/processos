@@ -14,8 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@Tag(name = " Tipo Parte", description = "CRUD de Tipo Parte")
-@RequestMapping("/tb_tipo_parte")
+@Tag(name = "\uD83C\uDF55 Tipo Parte", description = "CRUD de Tipo Parte")
+@RequestMapping("/tipo_parte")
 @RequiredArgsConstructor
 public class TipoParteController {
 

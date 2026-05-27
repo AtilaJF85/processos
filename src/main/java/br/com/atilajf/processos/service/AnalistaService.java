@@ -1,6 +1,8 @@
 package br.com.atilajf.processos.service;
 
 import java.util.List;
+
+import br.com.atilajf.processos.mapper.PessoaFisicaMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import br.com.atilajf.processos.dto.AnalistaDTO;
@@ -23,6 +25,8 @@ public class AnalistaService {
 	private final PessoaFisicaRepository pessoaFisicaRepository;
 	private final SetorRepository setorRepository;
 
+    private final PessoaFisicaMapper pessoaFisicaMapper;
+
 
 	public List<AnalistaDTO> listarTodos() {
 		return analistaRepository.findAll().stream()
@@ -31,10 +35,7 @@ public class AnalistaService {
 				                        		                             .dataVinculo(analistaEntity.getDataVinculo())
 				                        		                             .registroAtivo(analistaEntity.getRegistroAtivo())
 
-				                        		                             .pessoaFisica(PessoaFisicaDTO.builder()
-				                        		                            		                      .id(analistaEntity.getPessoaFisica().getId())
-				                        		                            		                      .nomePessoaFisica(analistaEntity.getPessoaFisica().getNomePessoaFisica())
-				                        		                            		                      .build())
+				                        		                             .pessoaFisica(pessoaFisicaMapper.toDto(analistaEntity.getPessoaFisica()))
 				                        		                             .setor(SetorDTO.builder()
 				                        		                            		        .id(analistaEntity.getSetor().getId())
 				                        		                            		        .nomeSetor(analistaEntity.getSetor().getNomeSetor())
@@ -58,21 +59,7 @@ public class AnalistaService {
                         .descricaoSetor(analistaEntity.getSetor().getDescricaoSetor())
                         .registroAtivo(analistaEntity.getSetor().getRegistroAtivo())
                         .build())
-                .pessoaFisica(PessoaFisicaDTO.builder()
-                        .id(analistaEntity.getPessoaFisica().getId())
-                        .nomePessoaFisica(analistaEntity.getPessoaFisica().getNomePessoaFisica())
-                        .cpf(analistaEntity.getPessoaFisica().getCpf())
-                        .dataDeNascimento(analistaEntity.getPessoaFisica().getDataDeNascimento())
-                        .email(analistaEntity.getPessoaFisica().getEmail())
-                        .numeroTelefone(analistaEntity.getPessoaFisica().getNumeroTelefone())
-                        .logradouro(analistaEntity.getPessoaFisica().getLogradouro())
-                        .complemento(analistaEntity.getPessoaFisica().getComplemento())
-                        .nomeBairro(analistaEntity.getPessoaFisica().getNomeBairro())
-                        .nomeMunicipio(analistaEntity.getPessoaFisica().getNomeMunicipio())
-                        .uf(analistaEntity.getPessoaFisica().getUf())
-                        .cep(analistaEntity.getPessoaFisica().getCep())
-                        .servicoAtivo(analistaEntity.getPessoaFisica().getServicoAtivo())
-                        .build())
+                .pessoaFisica(pessoaFisicaMapper.toDto(analistaEntity.getPessoaFisica()))
                 .build();
 
 

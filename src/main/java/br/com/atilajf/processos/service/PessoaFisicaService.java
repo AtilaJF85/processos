@@ -1,6 +1,8 @@
 package br.com.atilajf.processos.service;
 
 import java.util.List;
+
+import br.com.atilajf.processos.mapper.PessoaFisicaMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import br.com.atilajf.processos.dto.PessoaFisicaDTO;
@@ -16,46 +18,21 @@ import lombok.extern.slf4j.Slf4j;
 public class PessoaFisicaService {
 
 	private final PessoaFisicaRepository pessoaFisicaRepository;
+	private final PessoaFisicaMapper pessoaFisicaMapper;
 	
 	
 	public List<PessoaFisicaDTO> listarTodos(){
-		return pessoaFisicaRepository.findAll().stream()
-				                               .map(pessoaFisicaEntity -> PessoaFisicaDTO.builder()
-													   									 .id(pessoaFisicaEntity.getId())
-				                            		                                     .nomePessoaFisica(pessoaFisicaEntity.getNomePessoaFisica())
-				                            		                                     .cpf(pessoaFisicaEntity.getCpf())
-				                            		                                     .dataDeNascimento(pessoaFisicaEntity.getDataDeNascimento())
-				                            		                                     .email(pessoaFisicaEntity.getEmail())
-				                            		                                     .numeroTelefone(pessoaFisicaEntity.getNumeroTelefone())
-				                            		                                     .logradouro(pessoaFisicaEntity.getLogradouro())
-				                            		                                     .complemento(pessoaFisicaEntity.getComplemento())
-				                            		                                     .nomeBairro(pessoaFisicaEntity.getNomeBairro())
-				                            		                                     .nomeMunicipio(pessoaFisicaEntity.getNomeMunicipio())
-				                            		                                     .uf(pessoaFisicaEntity.getUf())
-				                            		                                     .cep(pessoaFisicaEntity.getCep())
-				                            		                                     .servicoAtivo(pessoaFisicaEntity.getServicoAtivo())
-				                            		                                     .build())
-				                                                                         .toList();
+		return pessoaFisicaRepository.findAll()
+				.stream()
+			    .map(pessoaFisicaMapper::toDto)
+			    .toList();
 	}
 	
 	
 	@Transactional
 	public PessoaFisicaDTO cadastro(PessoaFisicaDTO pessoaFisicaDto) {
 		
-		PessoaFisicaEntity pessoaFisicaEntity = new PessoaFisicaEntity();
-		
-		pessoaFisicaEntity.setNomePessoaFisica(pessoaFisicaDto.getNomePessoaFisica());
-		pessoaFisicaEntity.setCpf(pessoaFisicaDto.getCpf());
-		pessoaFisicaEntity.setDataDeNascimento(pessoaFisicaDto.getDataDeNascimento());
-		pessoaFisicaEntity.setEmail(pessoaFisicaDto.getEmail());
-		pessoaFisicaEntity.setNumeroTelefone(pessoaFisicaDto.getNumeroTelefone());
-		pessoaFisicaEntity.setLogradouro(pessoaFisicaDto.getLogradouro());
-		pessoaFisicaEntity.setComplemento(pessoaFisicaDto.getComplemento());
-		pessoaFisicaEntity.setNomeBairro(pessoaFisicaDto.getNomeBairro());
-		pessoaFisicaEntity.setNomeMunicipio(pessoaFisicaDto.getNomeMunicipio());
-		pessoaFisicaEntity.setUf(pessoaFisicaDto.getUf());
-		pessoaFisicaEntity.setCep(pessoaFisicaDto.getCep());
-		pessoaFisicaEntity.setServicoAtivo(pessoaFisicaDto.getServicoAtivo());
+		PessoaFisicaEntity pessoaFisicaEntity = pessoaFisicaMapper.toEntity(pessoaFisicaDto);
        
 		if (pessoaFisicaEntity.getId() != null && pessoaFisicaEntity.getCpf() != null) {
 			 pessoaFisicaRepository.save(pessoaFisicaEntity);
