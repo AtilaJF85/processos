@@ -1,6 +1,6 @@
 package br.com.atilajf.processos.dto;
 
-import java.security.Timestamp;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,9 +16,9 @@ public class UsuarioDTO {
 	
 	private String descricaoSubOidc;
 
-	private Timestamp dataPrimeiroAcesso;
+	private LocalDateTime dataPrimeiroAcesso;
 
-	private Timestamp dataUltimoAcesso;
+	private LocalDateTime dataUltimoAcesso;
 
 	private String registroAtivo;
 

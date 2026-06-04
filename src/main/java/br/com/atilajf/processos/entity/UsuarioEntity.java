@@ -1,6 +1,6 @@
 package br.com.atilajf.processos.entity;
 
-import java.security.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -30,10 +30,10 @@ public class UsuarioEntity {
 	private String descricaoSubOidc;
 
 	@Column(name = "dt_primeiro_acesso", nullable = false)
-	private Timestamp dataPrimeiroAcesso;
+	private LocalDateTime dataPrimeiroAcesso;
 
 	@Column(name = "dt_ultimo_acesso", nullable = false)
-	private Timestamp dataUltimoAcesso;
+	private LocalDateTime dataUltimoAcesso;
 
 	@Column(name = "st_registro_ativo", length = 1, nullable = false)
 	private String registroAtivo;
@@ -47,6 +47,9 @@ public class UsuarioEntity {
 	
 	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
 	private List<RegistroEntity> registro;
+	
+	@OneToMany(mappedBy = "usuarioAbertura", fetch = FetchType.LAZY)
+	private List<ProcessoEntity> processo;
 
 
 }

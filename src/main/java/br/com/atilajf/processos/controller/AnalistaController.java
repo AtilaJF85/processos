@@ -14,7 +14,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@Tag(name = "🤷‍♂️ Analista", description = "CRUD de Analista")
+@Tag(name = "🤷‍♂️ Analista", description = "Listar/Buscar/Recuperar ANALISTA")
 @RequestMapping("/analista")
 @RequiredArgsConstructor
 public class AnalistaController {
@@ -25,6 +25,11 @@ public class AnalistaController {
 	public ResponseEntity<List<AnalistaDTO>> listar() {
 		final var analista = analistaService.listarTodos();
 		return ResponseEntity.ok(analista);
+	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<AnalistaDTO> recuperarPorId(@PathVariable Long id) {
+		return ResponseEntity.ok(analistaService.recuperarPorId(id));
 	}
 	
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -38,8 +43,4 @@ public class AnalistaController {
 		return ResponseEntity.created(uri).build();
 	}
 
-	@GetMapping("/{id}")
-	public ResponseEntity<AnalistaDTO> recuperarPorId(@PathVariable Long id) {
-		return ResponseEntity.ok(analistaService.recuperarPorId(id));
-	}
 }

@@ -4,8 +4,6 @@ import java.util.List;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -19,9 +17,8 @@ import lombok.Setter;
 public class TipoParteEntity {
 
 	@Id
-	@Column(name = "co_tipo_parte")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@Column(name = "co_tipo_parte", length = 30, nullable = false)
+	private String id;
 
 	@Column(name = "ds_tipo_parte", length = 200, nullable = false)
 	private String descricaoTipoParte;

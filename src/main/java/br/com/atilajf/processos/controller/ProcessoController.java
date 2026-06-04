@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@Tag(name = "📑 Processo", description = "CRUD de Processo")
+@Tag(name = "📑 Processo", description = "Listar/Buscar/Cadastrar PROCESSO")
 @RequestMapping("/processo")
 @RequiredArgsConstructor
 public class ProcessoController {
@@ -30,9 +31,14 @@ public class ProcessoController {
 		return ResponseEntity.ok(processo);
 	}
 	
+	@GetMapping("/{id}")
+	public ResponseEntity<ProcessoDTO> recuperarPorId(@PathVariable Long id) {
+		return ResponseEntity.ok(processoService.buscarPorId(id));
+	}
+	
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Void> cadastrarProcesso(@RequestBody ProcessoDTO processoDto) {
-		final var id = processoService.cadastro(processoDto);
+		final var id = processoService.cadastrar(processoDto);
 		final var uri = ServletUriComponentsBuilder
 				.fromCurrentRequest()
 				.path("/{id}")

@@ -1,15 +1,10 @@
 package br.com.atilajf.processos.service;
 
-import java.util.List;
 import org.springframework.stereotype.Service;
-
-import br.com.atilajf.processos.dto.PessoaFisicaDTO;
-import br.com.atilajf.processos.dto.PessoaJuridicaDTO;
+import org.springframework.transaction.annotation.Transactional;
 import br.com.atilajf.processos.dto.ProcessoParteDTO;
-import br.com.atilajf.processos.entity.ProcessoParteEntity;
 import br.com.atilajf.processos.exception.IdNaoExisteException;
-import br.com.atilajf.processos.repository.PessoaFisicaRepository;
-import br.com.atilajf.processos.repository.PessoaJuridicaRepository;
+import br.com.atilajf.processos.mapper.ProcessoParteMapper;
 import br.com.atilajf.processos.repository.ProcessoParteRepository;
 import br.com.atilajf.processos.repository.ProcessoRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,58 +16,36 @@ import lombok.extern.slf4j.Slf4j;
 public class ProcessoParteService {
 
 	private final ProcessoParteRepository processoParteRepository;
-	private final PessoaFisicaRepository pessoaFisicaRepository;
-	private final PessoaJuridicaRepository pessoaJuridicaRepository;
 	private final ProcessoRepository processoRepository;
+
+    private final ProcessoParteMapper processoParteMapper;
+
 	
-	
-	public List<ProcessoParteDTO> listarPartesPorProcesso(ProcessoParteDTO processoParteDto){
-		
-		return processoParteRepository.findByProcessoId(processoParteDto.getProcesso().getId()).stream()
-				                                                                               .map(processoParteEntity -> ProcessoParteDTO.builder()
-				                                                                            		                                       .pessoaFisica(PessoaFisicaDTO.builder()
-				                                                                            		                                    		   .nomePessoaFisica(processoParteEntity.getPessoaFisica().getNomePessoaFisica())
-				                                                                            		                                    		   .cpf(processoParteEntity.getPessoaFisica().getCpf())
-				                                                                            		                                    		   .email(processoParteEntity.getPessoaFisica().getEmail())
-				                                                                            		                                    		   .logradouro(processoParteEntity.getPessoaFisica().getLogradouro())
-				                                                                            		                                    		   .cep(processoParteEntity.getPessoaFisica().getCep())
-				                                                                            		                                    		   .nomeBairro(processoParteEntity.getPessoaFisica().getNomeBairro())
-				                                                                            		                                    		   .nomeMunicipio(processoParteEntity.getPessoaFisica().getNomeMunicipio())
-				                                                                            		                                    		   .build())
-				                                                                            		                                       .pessoaJuridica(PessoaJuridicaDTO.builder()
-				                                                                            		                                    		   .nomeRazaoSocial(processoParteEntity.getPessoaJuridica().getNomeRazaoSocial())
-				                                                                            		                                    		   .cnpj(processoParteEntity.getPessoaJuridica().getCnpj())
-				                                                                            		                                    		   .email(processoParteEntity.getPessoaJuridica().getEmail())
-				                                                                            		                                    		   .logradouro(processoParteEntity.getPessoaJuridica().getLogradouro())
-				                                                                            		                                    		   .cep(processoParteEntity.getPessoaJuridica().getCep())
-				                                                                            		                                    		   .nomeBairro(processoParteEntity.getPessoaJuridica().getNomeBairro())
-				                                                                            		                                    		   .nomeMunicipio(processoParteEntity.getPessoaJuridica().getNomeMunicipio())
-				                                                                            		                                    		   .build())
-				                                                                            		                                       .build())
-				                                                                               .toList();
-				                                                             
-		
+    public ProcessoParteDTO listaPartesProcesso(Long id) {
+
+		final var processoParteEntity = processoParteRepository.findById(id)
+				                                               .orElseThrow(() -> new IdNaoExisteException("Não existe PROCESSO com o ID informado."));
+
+		return processoParteMapper.toDtoProcessoParte(processoParteEntity);
+
 	}
+
 	
-	public ProcessoParteDTO associarParteProcesso(ProcessoParteDTO processoParteDto) {
+    @Transactional
+    public ProcessoParteDTO buscarPorIdAssociarParte(ProcessoParteDTO processoParteDto) {
+
+    	final var processoEntity = processoRepository.findById(processoParteDto.getProcesso()
+    			                                                               .getId())
+    			                                                               .orElseThrow(() -> new IdNaoExisteException("Não existe PROCESSO com o ID informado."));
+    			
+		final var processoParteEntity = processoParteMapper.toEntityProcessoParteCadastroPartes(processoParteDto, processoEntity);
 		
-		final var processoParteEntity = new ProcessoParteEntity();
+		processoParteRepository.save(processoParteEntity);
+		processoParteDto.setId(processoParteEntity.getId());
 		
-		processoParteEntity.setProcesso(processoRepository.findById(processoParteDto.getProcesso()
-				                                                                    .getId())
-				                                                                    .orElseThrow(() -> new IdNaoExisteException("PROCESSO com ID " + processoParteDto.getProcesso().getId() + " Não existe!")));
-		
-//		processoParteEntity.setPessoaFisica(processoParteDto.getPessoaFisica().builder())
-				                                                              
-				                                                              
-		
-		if (processoParteDto.getProcesso().getId() .equals(processoParteEntity.getProcesso().getId())) {
-			
-			
-			
-		}
-		
-		return null;
-		
+		return processoParteDto;
+	
+
 	}
+
 }

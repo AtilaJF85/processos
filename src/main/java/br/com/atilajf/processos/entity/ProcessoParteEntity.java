@@ -1,6 +1,6 @@
 package br.com.atilajf.processos.entity;
 
-import java.security.Timestamp;
+import java.time.LocalDateTime;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,7 +27,7 @@ public class ProcessoParteEntity {
 	private String tipoPessoa;
 	
 	@Column(name = "dt_vinculo", nullable = false)
-	private Timestamp dataVinculo;
+	private LocalDateTime dataVinculo;
 	
 	@Column(name = "st_registro_ativo", length = 1, nullable = false)
 	private String registroAtivo;

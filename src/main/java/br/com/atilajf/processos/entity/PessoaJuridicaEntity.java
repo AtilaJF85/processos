@@ -3,7 +3,6 @@ package br.com.atilajf.processos.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.util.List;
 
 @Entity
@@ -41,7 +40,7 @@ public class PessoaJuridicaEntity {
 	@Column(name = "no_bairro", length = 100, nullable = false)
 	private String nomeBairro;
 
-	@Column(name = "no_municipo", length = 100, nullable = false)
+	@Column(name = "no_municipio", length = 100, nullable = false)
 	private String nomeMunicipio;
 
 	@Column(name = "sg_uf", length = 2, nullable = false)

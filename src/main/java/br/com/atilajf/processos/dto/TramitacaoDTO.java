@@ -1,6 +1,8 @@
 package br.com.atilajf.processos.dto;
 
-import java.security.Timestamp;
+
+import java.time.LocalDateTime;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,7 +16,7 @@ public class TramitacaoDTO {
 
 	private Long id;
 
-	private Timestamp dataTramitacao;
+	private LocalDateTime dataTramitacao;
 
 	private String descricaoObservacao;
 

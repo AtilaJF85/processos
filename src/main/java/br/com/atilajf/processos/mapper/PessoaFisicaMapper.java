@@ -7,26 +7,32 @@ import org.springframework.stereotype.Component;
 @Component
 public class PessoaFisicaMapper {
 
-    public PessoaFisicaDTO toDto(PessoaFisicaEntity entity) {
+    public PessoaFisicaDTO toDtoPessoaFisica(PessoaFisicaEntity pessoaFisicaEntity) {
+    	
+    	if(pessoaFisicaEntity == null) {
+    		return null;
+    	}
+    	
         return PessoaFisicaDTO.builder()
-                .id(entity.getId())
-                .nomePessoaFisica(entity.getNomePessoaFisica())
-                .cpf(entity.getCpf())
-                .dataDeNascimento(entity.getDataDeNascimento())
-                .email(entity.getEmail())
-                .numeroTelefone(entity.getNumeroTelefone())
-                .logradouro(entity.getLogradouro())
-                .complemento(entity.getComplemento())
-                .nomeBairro(entity.getNomeBairro())
-                .nomeMunicipio(entity.getNomeMunicipio())
-                .uf(entity.getUf())
-                .cep(entity.getCep())
-                .servicoAtivo(entity.getServicoAtivo())
+                .id(pessoaFisicaEntity.getId())
+                .nomePessoaFisica(pessoaFisicaEntity.getNomePessoaFisica())
+                .cpf(pessoaFisicaEntity.getCpf())
+                .dataDeNascimento(pessoaFisicaEntity.getDataDeNascimento())
+                .email(pessoaFisicaEntity.getEmail())
+                .numeroTelefone(pessoaFisicaEntity.getNumeroTelefone())
+                .logradouro(pessoaFisicaEntity.getLogradouro())
+                .complemento(pessoaFisicaEntity.getComplemento())
+                .nomeBairro(pessoaFisicaEntity.getNomeBairro())
+                .nomeMunicipio(pessoaFisicaEntity.getNomeMunicipio())
+                .uf(pessoaFisicaEntity.getUf())
+                .cep(pessoaFisicaEntity.getCep())
+                .servicoAtivo(pessoaFisicaEntity.getServicoAtivo())
                 .build();
     }
 
-    public PessoaFisicaEntity toEntity(PessoaFisicaDTO pessoaFisicaDto) {
-        final PessoaFisicaEntity pessoaFisicaEntity = new PessoaFisicaEntity();
+    public PessoaFisicaEntity toEntityPessoaFisicaCadastro(PessoaFisicaDTO pessoaFisicaDto) {
+       
+    	final var pessoaFisicaEntity = new PessoaFisicaEntity();
 
         pessoaFisicaEntity.setNomePessoaFisica(pessoaFisicaDto.getNomePessoaFisica());
         pessoaFisicaEntity.setCpf(pessoaFisicaDto.getCpf());

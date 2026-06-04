@@ -1,6 +1,6 @@
 package br.com.atilajf.processos.entity;
 
-import java.security.Timestamp;
+import java.time.LocalDateTime;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,7 +24,7 @@ public class TramitacaoEntity {
 	private Long id;
 
 	@Column(name = "dt_tramitacao", nullable = false)
-	private Timestamp dataTramitacao;
+	private LocalDateTime dataTramitacao;
 
 	@Column(name = "ds_observacao", length = 1000, nullable = false)
 	private String descricaoObservacao;

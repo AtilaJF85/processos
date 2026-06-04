@@ -1,6 +1,6 @@
 package br.com.atilajf.processos.entity;
 
-import java.security.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,17 +33,17 @@ public class ProcessoEntity {
 	private String descricaoAssunto;
 
 	@Column(name = "dt_abertura", nullable = false)
-	private Timestamp dataAbertura;
+	private LocalDateTime dataAbertura;
 
 	@Column(name = "st_registro_ativo", length = 1, nullable = false)
 	private String registroAtivo;
 
 	@ManyToOne
-	@JoinColumn(name = "usuario_abertura_id", referencedColumnName = "co_seq_usuario")
+	@JoinColumn(name = "co_seq_usuario_abertura", referencedColumnName = "co_seq_usuario")
 	private UsuarioEntity usuarioAbertura;
 
 	@ManyToOne
-	@JoinColumn(name = "situacao_processo_id", referencedColumnName = "co_situacao_processo")
+	@JoinColumn(name = "co_situacao_processo", referencedColumnName = "co_situacao_processo")
 	private SituacaoProcessoEntity situacaoProcesso;
 
 	@OneToMany(mappedBy = "processo", fetch = FetchType.LAZY)

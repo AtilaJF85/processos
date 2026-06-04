@@ -1,9 +1,7 @@
 package br.com.atilajf.processos.service;
 
 import java.util.List;
-
 import org.springframework.stereotype.Service;
-
 import br.com.atilajf.processos.dto.SituacaoProcessoDTO;
 import br.com.atilajf.processos.repository.SituacaoProcessoRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,5 +24,7 @@ public class SituacaoProcessoService {
 						                                                                             
 				                                  .toList();
 	}
+	
+
 
 }

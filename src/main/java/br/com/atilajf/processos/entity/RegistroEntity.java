@@ -1,7 +1,6 @@
 package br.com.atilajf.processos.entity;
 
-import java.security.Timestamp;
-
+import java.time.LocalDateTime;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,7 +20,7 @@ public class RegistroEntity {
 	private String descricaoRegistro;
 	
 	@Column(name = "dt_registro", nullable = false)
-	private Timestamp dataRegistro;
+	private LocalDateTime dataRegistro;
 	
 	@Column(name = "st_registro_ativo", length = 1, nullable = false)
 	private String registroAtivo;

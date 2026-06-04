@@ -4,20 +4,21 @@ import java.util.List;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import br.com.atilajf.processos.service.SetorService;
 import br.com.atilajf.processos.dto.SetorDTO;
+import br.com.atilajf.processos.service.SetorService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@Tag(name = "🏢 Setor", description = "CRUD de Setor")
+@Tag(name = "🏢 Setor", description = "Listar/Buscar/Cadastrar SETOR")
 @RequestMapping("/setor")
 @RequiredArgsConstructor
 public class SetorController {
@@ -28,6 +29,11 @@ public class SetorController {
 	public ResponseEntity<List<SetorDTO>> listar(){
 		final var setor = setorService.listarTodos();
 		return ResponseEntity.ok(setor);
+	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<SetorDTO> recuperarPorId(@PathVariable Long id) {
+		return ResponseEntity.ok(setorService.buscarPorId(id));
 	}
 	
 	

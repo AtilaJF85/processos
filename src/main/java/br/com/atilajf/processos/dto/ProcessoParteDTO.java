@@ -1,6 +1,7 @@
 package br.com.atilajf.processos.dto;
 
-import java.security.Timestamp;
+
+import java.time.LocalDateTime;
 import br.com.atilajf.processos.entity.TipoParteEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,7 +18,7 @@ public class ProcessoParteDTO {
 
 	private String tipoPessoa;
 
-	private Timestamp dataVinculo;
+	private LocalDateTime dataVinculo;
 
 	private String registroAtivo;
 

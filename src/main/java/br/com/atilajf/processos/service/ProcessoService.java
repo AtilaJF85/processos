@@ -4,10 +4,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import br.com.atilajf.processos.dto.ProcessoDTO;
-import br.com.atilajf.processos.dto.SituacaoProcessoDTO;
-import br.com.atilajf.processos.dto.UsuarioDTO;
-import br.com.atilajf.processos.entity.ProcessoEntity;
 import br.com.atilajf.processos.exception.IdNaoExisteException;
+import br.com.atilajf.processos.mapper.ProcessoMapper;
 import br.com.atilajf.processos.repository.ProcessoRepository;
 import br.com.atilajf.processos.repository.SituacaoProcessoRepository;
 import br.com.atilajf.processos.repository.UsuarioRepository;
@@ -23,57 +21,43 @@ public class ProcessoService {
 	private final ProcessoRepository processoRepository;
 	private final UsuarioRepository usuarioRepository;
 	private final SituacaoProcessoRepository situacaoProcessoRepository;
+	private final ProcessoMapper processoMapper;
+	
 	
 	public List<ProcessoDTO> Listar(){
+		
 		return processoRepository.findAll().stream()
-				                           .map(entityProcesso -> ProcessoDTO.builder()
-				                        		                             .id(entityProcesso.getId())
-				                        		                             .numeroProcesso(entityProcesso.getNumeroProcesso())
-				                        		                             .descricaoAssunto(entityProcesso.getDescricaoAssunto())
-				                        		                             .dataAbertura(entityProcesso.getDataAbertura())
-				                        		                             .registroAtivo(entityProcesso.getRegistroAtivo())
-				                        		                             
-				                        		                             .usuarioAbertura(UsuarioDTO.builder()
-				                        		                            		                    .id(entityProcesso.getUsuarioAbertura().getId())
-				                        		                            		                    .build())
-				                        		                             .situacaoProcesso(SituacaoProcessoDTO.builder()
-				                        		                            		                    .id(entityProcesso.getSituacaoProcesso().getId())
-				                        		                            		                    .build())
-				                        		                             
-				                        		                             .build())
+				                           .map(processoMapper :: toDtoProcesso)
 				                           .toList();
+				                              
+	}
+	
+	public ProcessoDTO buscarPorId(Long id) {
+		
+		final var processoEntity = processoRepository.findById(id)
+				                                     .orElseThrow(() -> new IdNaoExisteException("Não existe PESSOA FISICA com o ID informado."));
+		
+		return processoMapper.toDtoProcesso(processoEntity);
 	}
 	
 	
-	
-	
 	@Transactional
-	public ProcessoDTO cadastro(ProcessoDTO processoDto) {
+	public ProcessoDTO cadastrar(ProcessoDTO processoDto) {
 		
-		final var processoEntity = new ProcessoEntity();
-		
-		processoEntity.setNumeroProcesso(processoDto.getNumeroProcesso());
-		processoEntity.setDescricaoAssunto(processoDto.getDescricaoAssunto());
-		processoEntity.setDataAbertura(processoDto.getDataAbertura());
-		
-		processoEntity.setUsuarioAbertura(usuarioRepository.findById(processoDto.getUsuarioAbertura()
+		final var usuarioAberturaEntity = usuarioRepository.findById(processoDto.getUsuarioAbertura()
 				                                                                .getId())
-				                                                                .orElseThrow(() -> new IdNaoExisteException("SETOR DE ORIGEM com ID " + processoDto.getUsuarioAbertura().getId() + " Não existe!")));
+				                                                                .orElseThrow(() -> new IdNaoExisteException("Não existe USUARIO ABERTURA com o ID informado."));
 		
-		processoEntity.setSituacaoProcesso(situacaoProcessoRepository.findById(processoDto.getSituacaoProcesso()
+		final var situacaoProcessoEntity = situacaoProcessoRepository.findById(processoDto.getSituacaoProcesso()
 				                                                                          .getId())
-				                                                                          .orElseThrow(() -> new IdNaoExisteException("SETOR DE ORIGEM com ID " + processoDto.getSituacaoProcesso().getId() + " Não existe!")));
+				                                                                          .orElseThrow(() -> new IdNaoExisteException("Não existe SITUAÇÃO PROCESSO com o ID informado."));
 		
-		processoEntity.setRegistroAtivo(processoDto.getRegistroAtivo());
-		
-        if (processoEntity.getId() != null && processoEntity.getNumeroProcesso() != null) {
-			 processoRepository.save(processoEntity);
-			 processoDto.setId(processoEntity.getId());
-		}
-        else {
-			throw new RuntimeException("Informação divergente");
-		}
-		return processoDto;
+		final var processoEntity = processoMapper.toEntityProcessoCadastro(processoDto, usuarioAberturaEntity, situacaoProcessoEntity);
+	        
+		processoRepository.save(processoEntity);
+	    processoDto.setId(processoEntity.getId());
+	    
+	    return processoDto;
 
 	}
 

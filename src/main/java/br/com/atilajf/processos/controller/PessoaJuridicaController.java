@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@Tag(name = "👤🏢 Pessoa Juridica", description = "CRUD de Pessoa Juridica")
+@Tag(name = "👤🏢 Pessoa Juridica", description = "Listar/Buscar/Cadastrar PESSOA JURIDICA")
 @RequestMapping("/pessoa_juridica")
 @RequiredArgsConstructor
 public class PessoaJuridicaController {
@@ -28,6 +29,11 @@ public class PessoaJuridicaController {
 	public ResponseEntity<List<PessoaJuridicaDTO>> listar(){
 		final var pessoaJuridica = pessoaJuridicaService.listarTodos();
 		return ResponseEntity.ok(pessoaJuridica);
+	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<PessoaJuridicaDTO> recuperarPorId(@PathVariable Long id) {
+		return ResponseEntity.ok(pessoaJuridicaService.buscarPorId(id));
 	}
 	
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
